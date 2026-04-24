@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notre Système d'Acquisition — The WebiX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../assets/js/header.js" defer></script>
+  <style>
+    :root {
+      --blue:     #161B80;
+      --blue-mid: #545FFF;
+      --gold:     #E6C068;
+      --beige:    #EBE7E3;
+      --black:    #111111;
+      --grey:     #555555;
+      --white:    #FFFFFF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--beige); color: var(--black); overflow-x: hidden; }
+
+    /* TYPOGRAPHY */
+    .label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--grey);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .label::before { content: ''; display: inline-block; width: 20px; height: 1px; background: currentColor; flex-shrink: 0; }
+    .label--blue  { color: var(--blue); }
+    .label--gold  { color: var(--gold); }
+    .label--white { color: rgba(255,255,255,0.45); }
+    .label--white::before { background: rgba(255,255,255,0.35); }
+    .label--no-line::before { display: none; }
+
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 0 56px; }
+
+
+    /* BUTTONS */
+    .btn-primary {
+      background: var(--blue); color: #fff; padding: 17px 34px;
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px; transition: all 0.28s ease;
+    }
+    .btn-primary:hover { background: rgba(22,27,128,0.88); transform: translateY(-1px); }
+    .btn-ghost {
+      font-family: 'Courier Prime', monospace; font-size: 10.5px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.88); text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.7); padding: 16px 28px;
+      display: inline-flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px); background: transparent; transition: all 0.28s ease;
+    }
+    .btn-ghost:hover { transform: translateY(-1px); }
+    .btn-ghost--dark { color: var(--black); border-color: rgba(17,17,17,0.35); }
+    .btn-gold { background: var(--gold); color: var(--black); padding: 13px 26px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.28s ease; }
+    .btn-gold:hover { background: rgba(230,192,104,0.88); transform: translateY(-1px); }
+
+    /* PAGE HERO — blurry card over duotone image */
+    .page-hero {
+      min-height: 70vh;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(rgba(0,0,0,0.22), rgba(0,0,0,0.22)),
+                  url('../assets/images/wall_duotone.jpg') center center / cover no-repeat;
+    }
+    .page-hero-inner {
+      width: calc(100% - 100px);
+      margin: 50px;
+      position: relative; z-index: 2;
+      backdrop-filter: blur(24px) saturate(1.2);
+      -webkit-backdrop-filter: blur(24px) saturate(1.2);
+      background: rgba(235,231,227,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 80px 80px 70px;
+      text-align: center;
+    }
+    .page-hero-inner h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 7.5vw, 116px);
+      line-height: 0.9;
+      color: var(--white);
+      letter-spacing: 0.01em;
+      margin: 22px 0 28px;
+    }
+    .page-hero-inner p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.85;
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+    .page-hero-actions { display: flex; align-items: center; justify-content: center; gap: 24px; }
+
+    /* MARQUEE */
+    .marquee { background: var(--blue); overflow: hidden; padding: 11px 0; }
+    .marquee-track { display: flex; white-space: nowrap; animation: mq 22s linear infinite; }
+    .marquee-item { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 0.2em; color: rgba(255,255,255,0.45); padding: 0 26px; display: flex; align-items: center; gap: 26px; }
+    .marquee-item::after { content: '✦'; font-size: 7px; color: var(--gold); }
+    @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* INTRO STATS */
+    .section-intro-stats {
+      background: var(--beige);
+      padding: 90px 0;
+      border-bottom: 1px solid rgba(17,17,17,0.07);
+    }
+    .intro-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .intro-stats-left h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 5vw, 76px);
+      line-height: 0.92;
+      color: var(--black);
+      margin: 16px 0 22px;
+    }
+    .intro-stats-left p {
+      font-size: 13.5px;
+      color: var(--grey);
+      line-height: 1.9;
+      max-width: 480px;
+    }
+    .intro-stats-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: rgba(17,17,17,0.07);
+    }
+    .i-stat {
+      background: var(--beige);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .i-stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+    }
+    .i-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 58px;
+      line-height: 1;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .i-stat-num em { color: var(--gold); font-style: normal; font-size: 36px; }
+    .i-stat-lbl {
+      font-family: 'Courier Prime', monospace;
+      font-size: 8.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+    .i-stat-desc {
+      font-size: 11.5px;
+      color: var(--grey);
+      line-height: 1.65;
+      margin-top: 8px;
+    }
+
+    /* STEPS — full detail */
+    .section-steps {
+      background: var(--white);
+      padding: 110px 0;
+    }
+    .steps-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 80px;
+    }
+    .steps-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 5vw, 76px);
+      line-height: 0.92;
+      color: var(--black);
+    }
+    .step-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid rgba(17,17,17,0.09);
+      margin-bottom: 2px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.28s ease;
+    }
+    .step-block:hover { box-shadow: 0 8px 32px rgba(22,27,128,0.10); }
+    .step-block:nth-child(even) { direction: rtl; }
+    .step-block:nth-child(even) > * { direction: ltr; }
+    .step-img {
+      position: relative;
+      min-height: 360px;
+      overflow: hidden;
+    }
+    .step-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .step-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(22,27,128,0.12), rgba(22,27,128,0.06));
+    }
+    .step-num-ghost {
+      position: absolute;
+      bottom: -20px; right: -10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 120px;
+      color: rgba(22,27,128,0.08);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .step-content {
+      padding: 56px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--white);
+    }
+    .step-number {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+    .step-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 3.5vw, 52px);
+      line-height: 0.92;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+    .step-desc {
+      font-size: 13.5px;
+      color: var(--grey);
+      line-height: 1.9;
+      margin-bottom: 28px;
+    }
+    .step-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .step-tag {
+      font-family: 'Courier Prime', monospace;
+      font-size: 8.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border: 1px solid rgba(22,27,128,0.22);
+      padding: 5px 12px;
+    }
+
+    /* CONSTAT */
+    .section-constat {
+      background: var(--beige);
+      padding: 110px 0;
+    }
+    .constat-top { margin-bottom: 64px; }
+    .constat-top h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 6.5vw, 96px);
+      line-height: 0.9;
+      color: var(--black);
+      max-width: 680px;
+    }
+    .constat-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .constat-col {
+      padding: 44px 40px;
+      position: relative; overflow: hidden;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+    .constat-col--bad { background-color: rgba(235,231,227,0.92); border: 1px solid rgba(150,150,150,0.18); }
+    .constat-col--good { background-color: var(--blue); transform: scale(1.035); z-index: 2; }
+    .col-head { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .col-head-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.08em; }
+    .constat-col--bad .col-head-title { color: var(--black); }
+    .constat-col--good .col-head-title { color: rgba(255,255,255,0.94); }
+    .col-badge { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+    .badge-x { background: rgb(200,200,200); color: var(--white); }
+    .badge-check { background: var(--gold); color: var(--blue); }
+    .constat-items { display: flex; flex-direction: column; gap: 16px; }
+    .constat-item { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; line-height: 1.5; }
+    .constat-col--bad .constat-item { color: rgba(17,17,17,0.76); }
+    .constat-col--good .constat-item { color: rgba(255,255,255,0.78); }
+    .item-icon { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; font-size: 10px; }
+    .constat-col--bad .item-icon { color: var(--blue); }
+    .constat-col--good .item-icon { color: rgba(255,255,255,0.38); }
+
+    /* CTA SECTION */
+    .section-cta {
+      background-color: var(--blue);
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 18px 18px;
+      padding: 110px 0;
+      position: relative; overflow: hidden;
+    }
+    .cta-ghost { position: absolute; bottom: -60px; left: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 22vw; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; white-space: nowrap; }
+    .cta-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 60px; }
+    .cta-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 6.5vw, 96px); line-height: 0.9; color: var(--white); }
+    .cta-inner h2 em { font-style: normal; color: var(--gold); }
+    .cta-right { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; min-width: 260px; }
+    .cta-right p { font-size: 12.5px; color: rgba(255,255,255,0.55); line-height: 1.8; }
+    .btn-white-ghost { font-family: 'Courier Prime', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 2px; }
+
+    /* FOOTER */
+    footer { background: rgba(17,17,17,0.97); backdrop-filter: blur(28px) saturate(1.2); -webkit-backdrop-filter: blur(28px) saturate(1.2); padding: 68px 0 28px; position: relative; }
+    footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(22,27,128,0.18) 0%, transparent 70%); pointer-events: none; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 56px; margin-bottom: 56px; position: relative; z-index: 1; }
+    .footer-logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.1em; color: var(--white); margin-bottom: 14px; }
+    .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; max-width: 220px; }
+    .footer-col-label { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.38); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-contact-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; }
+    .footer-contact-row svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; stroke: rgba(255,255,255,0.25); fill: none; stroke-width: 1.8; }
+    .footer-contact-row span { font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.5; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+    .footer-bottom p, .footer-bottom a { font-size: 10.5px; color: rgba(255,255,255,0.2); text-decoration: none; }
+    .footer-bottom-links { display: flex; gap: 22px; }
+  </style>
+  <link rel="stylesheet" href="../assets/css/header.css" />
+</head>
+<body>
+  <div data-webix-header></div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <span class="label label--gold label--no-line" style="justify-content:center; margin-bottom:4px;">Notre système d'acquisition</span>
+      <h1>5 étapes.<br/>Un seul objectif.</h1>
+      <p>Transformer vos leads en clients. Notre système couvre chaque étape pour que rien ne tombe entre les craques — de la première publicité jusqu'à la signature.</p>
+      <div class="page-hero-actions">
+        <a href="contact.html" class="btn-primary">Obtenir mon plan personnalisé →</a>
+        <a href="services.html" class="btn-ghost">Voir les services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">Création Publicitaire</span>
+      <span class="marquee-item">Campagnes Marketing</span>
+      <span class="marquee-item">Qualification IA</span>
+      <span class="marquee-item">Booking Automatique</span>
+      <span class="marquee-item">CRM Intégré</span>
+      <span class="marquee-item">Processus de Vente</span>
+      <span class="marquee-item">KPI & Coaching</span>
+      <span class="marquee-item">Création Publicitaire</span>
+      <span class="marquee-item">Campagnes Marketing</span>
+      <span class="marquee-item">Qualification IA</span>
+      <span class="marquee-item">Booking Automatique</span>
+      <span class="marquee-item">CRM Intégré</span>
+      <span class="marquee-item">Processus de Vente</span>
+      <span class="marquee-item">KPI & Coaching</span>
+    </div>
+  </div>
+
+  <!-- INTRO STATS -->
+  <section class="section-intro-stats">
+    <div class="wrap">
+      <div class="intro-stats-grid">
+        <div class="intro-stats-left">
+          <span class="label label--blue" style="margin-bottom:18px;">Pourquoi un système complet?</span>
+          <h2>Le marketing seul ne suffit plus</h2>
+          <p>La plupart des entreprises investissent en publicité sans avoir les systèmes pour convertir ces leads en clients. On bâtit le pont entre votre marketing et vos ventes — de façon structurée, automatisée et mesurable.</p>
+        </div>
+        <div class="intro-stats-right">
+          <div class="i-stat">
+            <div class="i-stat-num">&lt;5<em>min</em></div>
+            <div class="i-stat-lbl">Premier contact</div>
+            <div class="i-stat-desc">Vos leads sont rejoints en moins de 5 minutes après soumission.</div>
+          </div>
+          <div class="i-stat">
+            <div class="i-stat-num">90<em>%</em></div>
+            <div class="i-stat-lbl">Leads rejoints</div>
+            <div class="i-stat-desc">Taux de contact moyen grâce à nos agents IA et suivis automatisés.</div>
+          </div>
+          <div class="i-stat">
+            <div class="i-stat-num">+40<em>%</em></div>
+            <div class="i-stat-lbl">Taux de conversion</div>
+            <div class="i-stat-desc">Amélioration moyenne du taux de closing après 90 jours.</div>
+          </div>
+          <div class="i-stat">
+            <div class="i-stat-num">750<em>%</em></div>
+            <div class="i-stat-lbl">ROI moyen</div>
+            <div class="i-stat-desc">Retour sur investissement moyen observé chez nos clients actifs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section-steps">
+    <div class="wrap">
+      <div class="steps-header">
+        <div>
+          <span class="label" style="margin-bottom:14px;">Notre approche</span>
+          <h2>Le système en détail</h2>
+        </div>
+        <a href="contact.html" class="btn-ghost btn-ghost--dark">Commencer →</a>
+      </div>
+
+      <!-- Étape 1 -->
+      <div class="step-block">
+        <div class="step-img">
+          <img src="../assets/images/office_duotone.jpg" alt="Création de contenu vidéo" />
+          <div class="step-img-overlay"></div>
+          <div class="step-num-ghost">01</div>
+        </div>
+        <div class="step-content">
+          <div class="step-number">Étape 01 / 05</div>
+          <div class="step-title">Création de contenu vidéo & photo</div>
+          <p class="step-desc">Contenu publicitaire pensé pour la conversion. Vidéos, photos, UGC optimisé pour vos campagnes. Chaque créatif est conçu pour capter l'attention dans les premières secondes et déclencher l'action.</p>
+          <div class="step-tags">
+            <span class="step-tag">Vidéo publicitaire</span>
+            <span class="step-tag">UGC</span>
+            <span class="step-tag">Photo de marque</span>
+            <span class="step-tag">Créatifs A/B</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 2 -->
+      <div class="step-block">
+        <div class="step-img">
+          <img src="../assets/images/wall_duotone.jpg" alt="Campagnes marketing" />
+          <div class="step-img-overlay"></div>
+          <div class="step-num-ghost">02</div>
+        </div>
+        <div class="step-content">
+          <div class="step-number">Étape 02 / 05</div>
+          <div class="step-title">Campagnes marketing de conversion</div>
+          <p class="step-desc">Meta Ads, Google Ads, multiplateformes. Focus lead gen et conversion. On structure vos campagnes pour atteindre votre client idéal avec le bon message, au bon moment, sur la bonne plateforme.</p>
+          <div class="step-tags">
+            <span class="step-tag">Meta Ads</span>
+            <span class="step-tag">Google Ads</span>
+            <span class="step-tag">Lead Generation</span>
+            <span class="step-tag">Retargeting</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 3 -->
+      <div class="step-block">
+        <div class="step-img">
+          <img src="../assets/images/table_duotone.jpg" alt="Qualification IA" />
+          <div class="step-img-overlay"></div>
+          <div class="step-num-ghost">03</div>
+        </div>
+        <div class="step-content">
+          <div class="step-number">Étape 03 / 05</div>
+          <div class="step-title">Qualification par agents IA</div>
+          <p class="step-desc">Qualification en temps réel 24/7. Scoring, routing, handoff automatique. Vos leads sont qualifiés, scorés et acheminés vers le bon membre de votre équipe — sans délai, sans effort manuel.</p>
+          <div class="step-tags">
+            <span class="step-tag">Agents IA</span>
+            <span class="step-tag">Qualification 24/7</span>
+            <span class="step-tag">Lead Scoring</span>
+            <span class="step-tag">Routing automatique</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 4 -->
+      <div class="step-block">
+        <div class="step-img">
+          <img src="../assets/images/hero_duotone.jpg" alt="Booking et CRM" />
+          <div class="step-img-overlay"></div>
+          <div class="step-num-ghost">04</div>
+        </div>
+        <div class="step-content">
+          <div class="step-number">Étape 04 / 05</div>
+          <div class="step-title">Booking automatique + CRM</div>
+          <p class="step-desc">RDV automatiques, rappels, pipeline CRM visuel. Zéro lead oublié. Chaque prospect est suivi dans un pipeline clair, avec des rappels automatisés et un CRM AI-ready qui centralise toutes vos données.</p>
+          <div class="step-tags">
+            <span class="step-tag">Booking automatisé</span>
+            <span class="step-tag">CRM AI-ready</span>
+            <span class="step-tag">Pipeline visuel</span>
+            <span class="step-tag">Rappels auto</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 5 -->
+      <div class="step-block">
+        <div class="step-img">
+          <img src="../assets/images/office2_duotone.jpg" alt="Processus de vente" />
+          <div class="step-img-overlay"></div>
+          <div class="step-num-ghost">05</div>
+        </div>
+        <div class="step-content">
+          <div class="step-number">Étape 05 / 05</div>
+          <div class="step-title">Assistance processus de vente</div>
+          <p class="step-desc">Scripts, KPI, dashboards, coaching. Closing prévisible et mesurable. On vous aide à structurer votre processus de vente pour maximiser votre taux de closing et rendre vos résultats prévisibles mois après mois.</p>
+          <div class="step-tags">
+            <span class="step-tag">Scripts de vente</span>
+            <span class="step-tag">KPI & Dashboards</span>
+            <span class="step-tag">Coaching</span>
+            <span class="step-tag">Closing prévisible</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONSTAT -->
+  <section class="section-constat">
+    <div class="wrap">
+      <div class="constat-top">
+        <span class="label label--blue" style="margin-bottom:18px;">Le constat</span>
+        <h2>Le marketing seul ne suffit plus</h2>
+      </div>
+      <div class="constat-cols">
+        <div class="constat-col constat-col--bad">
+          <div class="col-head">
+            <div class="col-badge badge-x">✕</div>
+            <div class="col-head-title">Sans système</div>
+          </div>
+          <div class="constat-items">
+            <div class="constat-item"><span class="item-icon">—</span><span>Leads non rappelés dans les délais</span></div>
+            <div class="constat-item"><span class="item-icon">—</span><span>Suivis irréguliers et opportunités perdues</span></div>
+            <div class="constat-item"><span class="item-icon">—</span><span>CRM mal utilisé ou inexistant</span></div>
+            <div class="constat-item"><span class="item-icon">—</span><span>Conversions stagnantes malgré le budget</span></div>
+            <div class="constat-item"><span class="item-icon">—</span><span>Coûts publicitaires qui augmentent sans ROI</span></div>
+          </div>
+        </div>
+        <div class="constat-col constat-col--good">
+          <div class="col-head">
+            <div class="col-badge badge-check">✓</div>
+            <div class="col-head-title">Avec système</div>
+          </div>
+          <div class="constat-items">
+            <div class="constat-item"><span class="item-icon">✓</span><span>Leads contactés en moins de 30 secondes</span></div>
+            <div class="constat-item"><span class="item-icon">✓</span><span>Suivi automatisé 24h/7j sans effort manuel</span></div>
+            <div class="constat-item"><span class="item-icon">✓</span><span>CRM AI-ready et données centralisées</span></div>
+            <div class="constat-item"><span class="item-icon">✓</span><span>Conversions prévisibles et mesurables</span></div>
+            <div class="constat-item"><span class="item-icon">✓</span><span>Coûts optimisés avec un ROI transparent</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section-cta">
+    <div class="cta-ghost">TWX</div>
+    <div class="wrap">
+      <div class="cta-inner">
+        <div>
+          <span class="label label--gold" style="margin-bottom:18px;">Prêt à structurer?</span>
+          <h2>Obtenez votre plan<br/><em>personnalisé.</em></h2>
+        </div>
+        <div class="cta-right">
+          <p>Réservez un appel stratégique avec notre équipe pour voir comment notre système peut s'adapter à votre réalité d'entreprise.</p>
+          <a href="contact.html" class="btn-gold">Réservez un appel stratégique</a>
+          <a href="services.html" class="btn-white-ghost">Voir nos services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo-name">The WebiX</div>
+          <p class="footer-tagline">Agence de systèmes d'acquisition basée sur la Rive-Sud de Montréal. On bâtit votre système de A à Z.</p>
+        </div>
+        <div>
+          <div class="footer-col-label">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="systeme.html">Système d'acquisition</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="etudes-de-cas.html">Études de cas</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Ressources</div>
+          <ul class="footer-links">
+            <li><a href="#">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Calculateur</a></li>
+            <li><a href="#">Formation CRM</a></li>
+            <li><a href="#">Termes et conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Nous joindre</div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <span>+1 (450) 300-6119</span>
+          </div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@thewebix.com</span>
+          </div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>1290 Bd Roland-Therrien<br/>Longueuil, QC J4J 5H4</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Services Thewebix inc. Tous droits réservés.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Politique de confidentialité</a>
+          <a href="#">Termes et conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

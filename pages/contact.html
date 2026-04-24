@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Soumission — The WebiX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../assets/js/header.js" defer></script>
+  <style>
+    :root {
+      --blue:     #161B80;
+      --blue-mid: #545FFF;
+      --gold:     #E6C068;
+      --beige:    #EBE7E3;
+      --black:    #111111;
+      --grey:     #555555;
+      --white:    #FFFFFF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--beige); color: var(--black); overflow-x: hidden; }
+
+    .label { font-family: 'Courier Prime', monospace; font-size: 9.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--grey); display: flex; align-items: center; gap: 10px; }
+    .label::before { content: ''; display: inline-block; width: 20px; height: 1px; background: currentColor; flex-shrink: 0; }
+    .label--blue { color: var(--blue); }
+    .label--gold { color: var(--gold); }
+    .label--no-line::before { display: none; }
+
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 0 56px; }
+
+
+    .btn-primary { background: var(--blue); color: #fff; padding: 17px 34px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.28s ease; border: none; cursor: pointer; width: 100%; justify-content: center; }
+    .btn-primary:hover { background: rgba(22,27,128,0.88); transform: translateY(-1px); }
+    .btn-ghost { font-family: 'Courier Prime', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.88); text-decoration: none; border: 1px solid rgba(255,255,255,0.7); padding: 16px 28px; display: inline-flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); background: transparent; transition: all 0.28s ease; }
+    .btn-ghost:hover { transform: translateY(-1px); }
+    .btn-gold { background: var(--gold); color: var(--black); padding: 13px 26px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.28s ease; }
+    .btn-gold:hover { background: rgba(230,192,104,0.88); transform: translateY(-1px); }
+    .btn-white-ghost { font-family: 'Courier Prime', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 2px; }
+
+    /* PAGE HERO */
+    .page-hero {
+      min-height: 65vh;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.28)),
+                  url('../assets/images/hero_duotone.jpg') center center / cover no-repeat;
+    }
+    .page-hero-inner {
+      width: calc(100% - 100px);
+      margin: 50px;
+      position: relative; z-index: 2;
+      backdrop-filter: blur(24px) saturate(1.2);
+      -webkit-backdrop-filter: blur(24px) saturate(1.2);
+      background: rgba(235,231,227,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 80px 80px 70px;
+      text-align: center;
+    }
+    .page-hero-inner h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 7.5vw, 116px); line-height: 0.9; color: var(--white); letter-spacing: 0.01em; margin: 22px 0 28px; }
+    .page-hero-inner p { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.85; max-width: 640px; margin: 0 auto; }
+
+    /* CONTACT MAIN */
+    .section-contact {
+      background: var(--beige);
+      padding: 110px 0;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* LEFT — info */
+    .contact-info h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 4.5vw, 68px);
+      line-height: 0.92;
+      color: var(--black);
+      margin: 16px 0 24px;
+    }
+    .contact-info p {
+      font-size: 13.5px;
+      color: var(--grey);
+      line-height: 1.9;
+      margin-bottom: 48px;
+    }
+    .contact-details { display: flex; flex-direction: column; gap: 0; margin-bottom: 48px; }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(17,17,17,0.09);
+    }
+    .contact-detail:first-child { border-top: 1px solid rgba(17,17,17,0.09); }
+    .contact-detail-icon {
+      width: 40px; height: 40px;
+      background: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-detail-icon svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 1.8; }
+    .contact-detail-label { font-family: 'Courier Prime', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+    .contact-detail-value { font-size: 13px; color: var(--black); font-weight: 500; line-height: 1.5; }
+
+    .contact-social { display: flex; gap: 10px; }
+    .social-link {
+      width: 38px; height: 38px;
+      border: 1px solid rgba(17,17,17,0.18);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .social-link:hover { background: var(--blue); border-color: var(--blue); }
+    .social-link svg { width: 14px; height: 14px; stroke: var(--black); fill: none; stroke-width: 1.8; transition: stroke 0.2s; }
+    .social-link:hover svg { stroke: #fff; }
+
+    /* RIGHT — form */
+    .contact-form-wrap {
+      background: var(--white);
+      padding: 56px 56px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-form-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-mid));
+    }
+    .form-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; line-height: 0.92; color: var(--black); margin-bottom: 6px; }
+    .form-sub { font-size: 12px; color: var(--grey); line-height: 1.7; margin-bottom: 36px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .form-group label { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      color: var(--black);
+      background: var(--beige);
+      border: 1px solid rgba(17,17,17,0.12);
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--blue); background: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select { cursor: pointer; }
+    .form-check { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 28px; }
+    .form-check input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--blue); cursor: pointer; }
+    .form-check label { font-size: 11.5px; color: var(--grey); line-height: 1.6; cursor: pointer; }
+    .form-check a { color: var(--blue); text-decoration: none; }
+
+    /* PROCESS STRIP */
+    .section-process-strip {
+      background: var(--blue);
+      padding: 80px 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+    .process-strip-header { text-align: center; margin-bottom: 56px; }
+    .process-strip-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 4.5vw, 64px); line-height: 0.92; color: var(--white); margin: 14px 0 0; }
+    .process-steps-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+    .ps-step {
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .ps-step::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1.5px;
+      background: var(--gold);
+    }
+    .ps-num { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; color: rgba(255,255,255,0.08); margin-bottom: 12px; }
+    .ps-icon { width: 36px; height: 36px; background: rgba(255,255,255,0.10); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+    .ps-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
+    .ps-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .ps-desc { font-size: 11.5px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+    /* FAQ */
+    .section-faq {
+      background: var(--white);
+      padding: 110px 0;
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .faq-left h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 4.5vw, 68px); line-height: 0.92; color: var(--black); margin: 16px 0 20px; }
+    .faq-left p { font-size: 13px; color: var(--grey); line-height: 1.85; }
+    .faq-items { display: flex; flex-direction: column; gap: 0; }
+    .faq-item {
+      border-bottom: 1px solid rgba(17,17,17,0.09);
+      overflow: hidden;
+    }
+    .faq-item:first-child { border-top: 1px solid rgba(17,17,17,0.09); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      cursor: pointer;
+      gap: 20px;
+    }
+    .faq-q-text { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; color: var(--black); line-height: 1.4; }
+    .faq-q-icon { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--blue); flex-shrink: 0; transition: transform 0.2s; }
+    .faq-a { font-size: 12.5px; color: var(--grey); line-height: 1.85; padding-bottom: 20px; display: none; }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-q-icon { transform: rotate(45deg); }
+
+    /* CTA */
+    .section-cta { background-color: var(--blue); background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 18px 18px; padding: 110px 0; position: relative; overflow: hidden; }
+    .cta-ghost { position: absolute; bottom: -60px; left: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 22vw; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; white-space: nowrap; }
+    .cta-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 60px; }
+    .cta-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 6.5vw, 96px); line-height: 0.9; color: var(--white); }
+    .cta-inner h2 em { font-style: normal; color: var(--gold); }
+    .cta-right { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; min-width: 260px; }
+    .cta-right p { font-size: 12.5px; color: rgba(255,255,255,0.55); line-height: 1.8; }
+
+    /* FOOTER */
+    footer { background: rgba(17,17,17,0.97); backdrop-filter: blur(28px) saturate(1.2); -webkit-backdrop-filter: blur(28px) saturate(1.2); padding: 68px 0 28px; position: relative; }
+    footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(22,27,128,0.18) 0%, transparent 70%); pointer-events: none; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 56px; margin-bottom: 56px; position: relative; z-index: 1; }
+    .footer-logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.1em; color: var(--white); margin-bottom: 14px; }
+    .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; max-width: 220px; }
+    .footer-col-label { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.38); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-contact-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; }
+    .footer-contact-row svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; stroke: rgba(255,255,255,0.25); fill: none; stroke-width: 1.8; }
+    .footer-contact-row span { font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.5; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+    .footer-bottom p, .footer-bottom a { font-size: 10.5px; color: rgba(255,255,255,0.2); text-decoration: none; }
+    .footer-bottom-links { display: flex; gap: 22px; }
+  </style>
+  <link rel="stylesheet" href="../assets/css/header.css" />
+</head>
+<body>
+  <div data-webix-header></div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <span class="label label--gold label--no-line" style="justify-content:center; margin-bottom:4px;">Parlons de votre projet</span>
+      <h1>Commençons<br/>la conversation.</h1>
+      <p>Réservez un appel stratégique gratuit de 30 minutes avec notre équipe. On analyse votre situation et on vous propose un plan d'action concret — sans engagement.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT MAIN -->
+  <section class="section-contact">
+    <div class="wrap">
+      <div class="contact-grid">
+
+        <!-- LEFT -->
+        <div class="contact-info">
+          <span class="label label--blue" style="margin-bottom:18px;">Nous joindre</span>
+          <h2>On est là pour vous.</h2>
+          <p>Que vous ayez un projet en tête, des questions sur nos services ou que vous vouliez simplement en apprendre plus sur notre approche — on est disponibles pour discuter.</p>
+
+          <div class="contact-details">
+            <div class="contact-detail">
+              <div class="contact-detail-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact-detail-label">Téléphone</div>
+                <div class="contact-detail-value">+1 (450) 300-6119</div>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="contact-detail-label">Courriel</div>
+                <div class="contact-detail-value">info@thewebix.com</div>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="contact-detail-label">Adresse</div>
+                <div class="contact-detail-value">1290 Bd Roland-Therrien<br/>Longueuil, QC J4J 5H4</div>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="contact-detail-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="contact-detail-label">Heures d'ouverture</div>
+                <div class="contact-detail-value">Lundi – Vendredi : 8h00 – 18h00<br/>Samedi : 9h00 – 13h00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-social">
+            <a href="#" class="social-link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT — FORM -->
+        <div class="contact-form-wrap">
+          <div class="form-title">Demande de soumission</div>
+          <p class="form-sub">Remplissez ce formulaire et un membre de notre équipe vous contactera dans les 24 heures pour planifier votre appel stratégique gratuit.</p>
+
+          <form>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="prenom">Prénom *</label>
+                <input type="text" id="prenom" name="prenom" placeholder="Louis" required />
+              </div>
+              <div class="form-group">
+                <label for="nom">Nom *</label>
+                <input type="text" id="nom" name="nom" placeholder="Tremblay" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Courriel *</label>
+                <input type="email" id="email" name="email" placeholder="vous@entreprise.com" required />
+              </div>
+              <div class="form-group">
+                <label for="tel">Téléphone *</label>
+                <input type="tel" id="tel" name="tel" placeholder="+1 (450) 000-0000" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="entreprise">Nom de l'entreprise *</label>
+              <input type="text" id="entreprise" name="entreprise" placeholder="Votre entreprise inc." required />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="industrie">Industrie *</label>
+                <select id="industrie" name="industrie" required>
+                  <option value="" disabled selected>Sélectionnez votre industrie</option>
+                  <option>Construction / Rénovation</option>
+                  <option>Clinique / Santé</option>
+                  <option>Services B2B</option>
+                  <option>Services financiers</option>
+                  <option>Immobilier</option>
+                  <option>E-Commerce</option>
+                  <option>Formation / Coaching</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="budget">Budget mensuel estimé</label>
+                <select id="budget" name="budget">
+                  <option value="" disabled selected>Sélectionnez une fourchette</option>
+                  <option>Moins de 2 000 $/mois</option>
+                  <option>2 000 – 5 000 $/mois</option>
+                  <option>5 000 – 10 000 $/mois</option>
+                  <option>10 000 – 25 000 $/mois</option>
+                  <option>25 000 $/mois et plus</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="objectif">Votre objectif principal *</label>
+              <select id="objectif" name="objectif" required>
+                <option value="" disabled selected>Quel est votre objectif?</option>
+                <option>Générer plus de leads qualifiés</option>
+                <option>Améliorer mon taux de conversion</option>
+                <option>Automatiser mon suivi des leads</option>
+                <option>Mettre en place un CRM</option>
+                <option>Structurer mon processus de vente</option>
+                <option>Tout le système de A à Z</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message (optionnel)</label>
+              <textarea id="message" name="message" placeholder="Décrivez votre situation actuelle, vos défis ou toute information pertinente..."></textarea>
+            </div>
+
+            <div class="form-check">
+              <input type="checkbox" id="consent" name="consent" required />
+              <label for="consent">J'accepte d'être contacté par The WebiX concernant ma demande. Je comprends que mes informations ne seront jamais partagées avec des tiers. <a href="#">Politique de confidentialité</a>.</label>
+            </div>
+
+            <button type="submit" class="btn-primary">Envoyer ma demande →</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS STRIP -->
+  <section class="section-process-strip">
+    <div class="wrap">
+      <div class="process-strip-header">
+        <span class="label label--gold label--no-line" style="justify-content:center; margin-bottom:14px;">Ce qui se passe après</span>
+        <h2>Notre processus d'intégration</h2>
+      </div>
+      <div class="process-steps-row">
+        <div class="ps-step">
+          <div class="ps-num">01</div>
+          <div class="ps-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.12.96.34 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.36 1.85.58 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+          </div>
+          <div class="ps-title">Appel stratégique</div>
+          <p class="ps-desc">30 minutes pour analyser votre situation et définir les opportunités.</p>
+        </div>
+        <div class="ps-step">
+          <div class="ps-num">02</div>
+          <div class="ps-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div class="ps-title">Plan personnalisé</div>
+          <p class="ps-desc">On vous présente un plan d'action sur mesure avec des objectifs clairs.</p>
+        </div>
+        <div class="ps-step">
+          <div class="ps-num">03</div>
+          <div class="ps-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="ps-title">Déploiement système</div>
+          <p class="ps-desc">Notre équipe déploie votre système d'acquisition en 30 à 60 jours.</p>
+        </div>
+        <div class="ps-step">
+          <div class="ps-num">04</div>
+          <div class="ps-icon">
+            <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="ps-title">Optimisation continue</div>
+          <p class="ps-desc">Suivi mensuel, optimisations et coaching pour maximiser vos résultats.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-faq">
+    <div class="wrap">
+      <div class="faq-grid">
+        <div class="faq-left">
+          <span class="label label--blue" style="margin-bottom:18px;">Questions fréquentes</span>
+          <h2>On répond à vos questions</h2>
+          <p>Vous avez d'autres questions? N'hésitez pas à nous contacter directement par téléphone ou courriel — on est là pour vous aider.</p>
+        </div>
+        <div class="faq-items">
+          <div class="faq-item open">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+              <span class="faq-q-text">Combien de temps avant de voir des résultats?</span>
+              <span class="faq-q-icon">+</span>
+            </div>
+            <div class="faq-a">La plupart de nos clients commencent à voir des leads qualifiés dans les 2 à 4 premières semaines. Les résultats significatifs (ROI positif, pipeline prévisible) arrivent généralement entre 60 et 90 jours après le déploiement complet du système.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+              <span class="faq-q-text">Est-ce que vous travaillez avec toutes les industries?</span>
+              <span class="faq-q-icon">+</span>
+            </div>
+            <div class="faq-a">On se spécialise dans les entreprises de services B2B et B2C : construction, rénovation, cliniques, services professionnels, immobilier, formation et plus. Si vous avez un service à vendre et que vous voulez plus de clients, notre système peut fonctionner pour vous.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+              <span class="faq-q-text">Quel est l'engagement minimum?</span>
+              <span class="faq-q-icon">+</span>
+            </div>
+            <div class="faq-a">Nos contrats démarrent généralement à 3 mois, le temps de déployer le système et de commencer à voir des résultats. Après ça, on travaille mois par mois. On n'a pas besoin de vous enfermer dans un long contrat — nos résultats parlent d'eux-mêmes.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+              <span class="faq-q-text">Est-ce que je dois avoir un CRM existant?</span>
+              <span class="faq-q-icon">+</span>
+            </div>
+            <div class="faq-a">Non. On peut travailler avec votre CRM existant ou en implanter un nouveau adapté à vos besoins. On s'occupe de toute la configuration, l'intégration et la formation de votre équipe.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+              <span class="faq-q-text">Quelle est la différence avec une agence marketing traditionnelle?</span>
+              <span class="faq-q-icon">+</span>
+            </div>
+            <div class="faq-a">Une agence marketing gère vos publicités. On fait ça aussi, mais on va beaucoup plus loin : on s'assure que chaque lead est qualifié, suivi, relancé et converti. On construit le système complet de A à Z, pas juste une partie du puzzle.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section-cta">
+    <div class="cta-ghost">TWX</div>
+    <div class="wrap">
+      <div class="cta-inner">
+        <div>
+          <span class="label label--gold" style="margin-bottom:18px;">Prêt à démarrer?</span>
+          <h2>Votre système<br/><em>vous attend.</em></h2>
+        </div>
+        <div class="cta-right">
+          <p>Appelez-nous directement ou remplissez le formulaire ci-dessus. On vous répond dans les 24 heures.</p>
+          <a href="tel:+14503006119" class="btn-gold">+1 (450) 300-6119</a>
+          <a href="mailto:info@thewebix.com" class="btn-white-ghost">info@thewebix.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo-name">The WebiX</div>
+          <p class="footer-tagline">Agence de systèmes d'acquisition basée sur la Rive-Sud de Montréal. On bâtit votre système de A à Z.</p>
+        </div>
+        <div>
+          <div class="footer-col-label">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="systeme.html">Système d'acquisition</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="etudes-de-cas.html">Études de cas</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Ressources</div>
+          <ul class="footer-links">
+            <li><a href="#">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Calculateur</a></li>
+            <li><a href="#">Formation CRM</a></li>
+            <li><a href="#">Termes et conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Nous joindre</div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <span>+1 (450) 300-6119</span>
+          </div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@thewebix.com</span>
+          </div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>1290 Bd Roland-Therrien<br/>Longueuil, QC J4J 5H4</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Services Thewebix inc. Tous droits réservés.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Politique de confidentialité</a>
+          <a href="#">Termes et conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple FAQ toggle
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        q.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+
+</body>
+</html>

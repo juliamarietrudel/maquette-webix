@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos Services — The WebiX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../assets/js/header.js" defer></script>
+  <style>
+    :root {
+      --blue:     #161B80;
+      --blue-mid: #545FFF;
+      --gold:     #E6C068;
+      --beige:    #EBE7E3;
+      --black:    #111111;
+      --grey:     #555555;
+      --white:    #FFFFFF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--beige); color: var(--black); overflow-x: hidden; }
+
+    .label { font-family: 'Courier Prime', monospace; font-size: 9.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--grey); display: flex; align-items: center; gap: 10px; }
+    .label::before { content: ''; display: inline-block; width: 20px; height: 1px; background: currentColor; flex-shrink: 0; }
+    .label--blue { color: var(--blue); }
+    .label--gold { color: var(--gold); }
+    .label--no-line::before { display: none; }
+
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 0 56px; }
+
+
+    .btn-primary { background: var(--blue); color: #fff; padding: 17px 34px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.28s ease; }
+    .btn-primary:hover { background: rgba(22,27,128,0.88); transform: translateY(-1px); }
+    .btn-ghost { font-family: 'Courier Prime', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.88); text-decoration: none; border: 1px solid rgba(255,255,255,0.7); padding: 16px 28px; display: inline-flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); background: transparent; transition: all 0.28s ease; }
+    .btn-ghost:hover { transform: translateY(-1px); }
+    .btn-ghost--dark { color: var(--black); border-color: rgba(17,17,17,0.35); }
+    .btn-gold { background: var(--gold); color: var(--black); padding: 13px 26px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.28s ease; }
+    .btn-gold:hover { background: rgba(230,192,104,0.88); transform: translateY(-1px); }
+    .btn-white-ghost { font-family: 'Courier Prime', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 2px; }
+
+    /* PAGE HERO — INFOGRAPHIC STYLE */
+    .page-hero {
+      min-height: 100vh;
+      padding-top: 80px;
+      background: var(--beige);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .page-hero::before {
+      content: 'SERVICES';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(120px, 18vw, 260px);
+      color: rgba(22,27,128,0.045);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: 0.06em;
+    }
+    .hero-infographic { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 80px); position: relative; z-index: 2; width: 100%}
+    .hero-left { padding: 80px 56px 80px 56px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(22,27,128,0.1); }
+    .hero-right { display: grid; grid-template-rows: 3fr 1fr; }
+    .hero-right-top { padding: 60px 56px; border-bottom: 1px solid rgba(22,27,128,0.1); display: flex; flex-direction: column; justify-content: center; }
+    .hero-right-bottom { display: grid; grid-template-columns: 1fr 1fr; }
+    .hero-stat-block { padding: 44px 36px; border-right: 1px solid rgba(22,27,128,0.1); display: flex; flex-direction: column; justify-content: flex-end; }
+    .hero-stat-block:last-child { border-right: none; }
+    .hero-stat-block:nth-child(odd) { background: var(--blue); }
+    .hero-stat-block:nth-child(odd) .hs-num { color: var(--gold); }
+    .hero-stat-block:nth-child(odd) .hs-label { color: rgba(255,255,255,0.55); }
+    .hero-tag { font-family: 'Courier Prime', monospace; font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+    .hero-tag::before { content: ''; width: 20px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .hero-left h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 7vw, 110px); line-height: 0.88; color: var(--black); letter-spacing: 0.01em; margin-bottom: 28px; }
+    .hero-left h1 em { font-style: normal; color: var(--blue); }
+    .hero-left p { font-size: 13.5px; color: var(--grey); line-height: 1.9; max-width: 440px; margin-bottom: 40px; }
+    .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .hero-service-list { display: flex; flex-direction: column; gap: 0; }
+    .hero-service-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(22,27,128,0.08); font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.04em; color: var(--black); text-decoration: none; transition: all 0.22s; }
+    .hero-service-item:hover { color: var(--blue); padding-left: 8px; }
+    .hero-service-item span { font-family: 'Courier Prime', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--gold); }
+    .hero-right-top-label { font-family: 'Courier Prime', monospace; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--grey); margin-bottom: 16px; }
+    .hero-right-top p { font-size: 13px; color: var(--grey); line-height: 1.85; max-width: 400px; }
+    .hs-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 1; color: var(--blue); }
+    .hs-label { font-family: 'Courier Prime', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); margin-top: 6px; }
+
+    /* MARQUEE */
+    .marquee { background: var(--blue); overflow: hidden; padding: 11px 0; }
+    .marquee-track { display: flex; white-space: nowrap; animation: mq 22s linear infinite; }
+    .marquee-item { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 0.2em; color: rgba(255,255,255,0.45); padding: 0 26px; display: flex; align-items: center; gap: 26px; }
+    .marquee-item::after { content: '✦'; font-size: 7px; color: var(--gold); }
+    @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* SERVICES LIST */
+    .section-services-list {
+      background: var(--white);
+      padding: 110px 0;
+    }
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 80px;
+    }
+    .services-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 5vw, 76px); line-height: 0.92; color: var(--black); }
+    .services-header p { font-size: 13.5px; color: var(--grey); line-height: 1.9; }
+
+    .service-card { cursor: pointer;
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr auto;
+      gap: 40px;
+      align-items: start;
+      padding: 48px 0;
+      border-top: 1px solid rgba(17,17,17,0.09);
+      position: relative;
+      transition: all 0.28s ease;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: rgba(17,17,17,0.09);
+    }
+    .service-card:hover { background: rgba(235,231,227,0.35); margin: 0 -56px; padding-left: 56px; padding-right: 56px; }
+    .svc-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 1; color: rgba(22,27,128,0.12); }
+    .svc-main {}
+    .svc-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; line-height: 0.95; color: var(--black); margin-bottom: 12px; }
+    .svc-sub { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+    .svc-desc { font-size: 13px; color: var(--grey); line-height: 1.85; }
+    .svc-features { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+    .svc-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; color: var(--grey); line-height: 1.5; }
+    .svc-feature::before { content: '—'; color: var(--blue); font-family: 'Courier Prime', monospace; flex-shrink: 0; }
+    .svc-arrow { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: rgba(22,27,128,0.2); align-self: center; transition: all 0.28s ease; }
+    .service-card:hover .svc-arrow { color: var(--blue); transform: translateX(4px); }
+
+    /* PACKAGES */
+    .section-packages {
+      background: var(--beige);
+      padding: 110px 0;
+    }
+    .packages-header { margin-bottom: 64px; }
+    .packages-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 5vw, 76px); line-height: 0.92; color: var(--black); margin: 16px 0 20px; }
+    .packages-header p { font-size: 13.5px; color: var(--grey); line-height: 1.9; max-width: 560px; }
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(17,17,17,0.07);
+    }
+    .pkg-card {
+      background: var(--beige);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.28s ease;
+    }
+    .pkg-card--featured {
+      background: var(--blue);
+    }
+    .pkg-card:hover:not(.pkg-card--featured) {
+      background: var(--white);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.10);
+      z-index: 2;
+    }
+    .pkg-badge {
+      font-family: 'Courier Prime', monospace;
+      font-size: 8px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      margin-bottom: 28px;
+      display: inline-block;
+    }
+    .pkg-card:not(.pkg-card--featured) .pkg-badge { background: rgba(22,27,128,0.08); color: var(--blue); }
+    .pkg-card--featured .pkg-badge { background: var(--gold); color: var(--blue); }
+    .pkg-name { font-family: 'Bebas Neue', sans-serif; font-size: 38px; line-height: 0.92; margin-bottom: 6px; }
+    .pkg-card:not(.pkg-card--featured) .pkg-name { color: var(--black); }
+    .pkg-card--featured .pkg-name { color: var(--white); }
+    .pkg-tagline { font-size: 12px; line-height: 1.7; margin-bottom: 28px; }
+    .pkg-card:not(.pkg-card--featured) .pkg-tagline { color: var(--grey); }
+    .pkg-card--featured .pkg-tagline { color: rgba(255,255,255,0.62); }
+    .pkg-divider { height: 1px; margin-bottom: 24px; }
+    .pkg-card:not(.pkg-card--featured) .pkg-divider { background: rgba(17,17,17,0.09); }
+    .pkg-card--featured .pkg-divider { background: rgba(255,255,255,0.14); }
+    .pkg-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+    .pkg-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; line-height: 1.5; }
+    .pkg-card:not(.pkg-card--featured) .pkg-feature { color: var(--grey); }
+    .pkg-card--featured .pkg-feature { color: rgba(255,255,255,0.72); }
+    .pkg-check { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
+    .pkg-card:not(.pkg-card--featured) .pkg-check { color: var(--blue); }
+    .pkg-card--featured .pkg-check { color: var(--gold); }
+    .pkg-cta { display: block; text-align: center; padding: 14px 24px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; transition: all 0.28s ease; }
+    .pkg-card:not(.pkg-card--featured) .pkg-cta { border: 1px solid rgba(22,27,128,0.35); color: var(--blue); }
+    .pkg-card:not(.pkg-card--featured) .pkg-cta:hover { background: var(--blue); color: var(--white); }
+    .pkg-card--featured .pkg-cta { background: var(--gold); color: var(--blue); }
+    .pkg-card--featured .pkg-cta:hover { background: rgba(230,192,104,0.88); }
+
+    /* METRICS DARK */
+    .section-metrics {
+      background-color: var(--blue);
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 18px 18px;
+      padding: 100px 0;
+    }
+    .metrics-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; }
+    .metrics-top h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 5vw, 76px); line-height: 0.92; color: var(--white); }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.05); }
+    .m-card { background: rgba(255,255,255,0.02); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); border: 1px solid rgba(255,255,255,0.14); padding: 40px 32px; position: relative; overflow: hidden; transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.28s ease; z-index: 1; }
+    .m-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.5px; background: var(--gold); }
+    .m-card:hover { transform: scale(1.045); box-shadow: 0 18px 34px rgba(0,0,0,0.14); background: rgba(255,255,255,0.06); z-index: 2; }
+    .m-label { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.52); margin-bottom: 14px; }
+    .m-num { font-family: 'Bebas Neue', sans-serif; font-size: 68px; line-height: 1; color: var(--white); margin-bottom: 10px; }
+    .m-num em { color: var(--gold); font-style: normal; }
+    .m-desc { font-size: 11.5px; color: rgba(255,255,255,0.68); line-height: 1.65; }
+    .m-bar { margin-top: 18px; height: 1.5px; background: rgba(255,255,255,0.14); position: relative; }
+    .m-bar-fill { position: absolute; top: 0; left: 0; bottom: 0; background: linear-gradient(90deg, var(--gold), var(--blue-mid)); }
+
+    /* CTA */
+    .section-cta { background-color: var(--blue); background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 18px 18px; padding: 110px 0; position: relative; overflow: hidden; }
+    .cta-ghost { position: absolute; bottom: -60px; left: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 22vw; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; white-space: nowrap; }
+    .cta-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 60px; }
+    .cta-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 6.5vw, 96px); line-height: 0.9; color: var(--white); }
+    .cta-inner h2 em { font-style: normal; color: var(--gold); }
+    .cta-right { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; min-width: 260px; }
+    .cta-right p { font-size: 12.5px; color: rgba(255,255,255,0.55); line-height: 1.8; }
+
+    /* FOOTER */
+    footer { background: rgba(17,17,17,0.97); backdrop-filter: blur(28px) saturate(1.2); -webkit-backdrop-filter: blur(28px) saturate(1.2); padding: 68px 0 28px; position: relative; }
+    footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(22,27,128,0.18) 0%, transparent 70%); pointer-events: none; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 56px; margin-bottom: 56px; position: relative; z-index: 1; }
+    .footer-logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.1em; color: var(--white); margin-bottom: 14px; }
+    .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; max-width: 220px; }
+    .footer-col-label { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.38); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-contact-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; }
+    .footer-contact-row svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; stroke: rgba(255,255,255,0.25); fill: none; stroke-width: 1.8; }
+    .footer-contact-row span { font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.5; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+    .footer-bottom p, .footer-bottom a { font-size: 10.5px; color: rgba(255,255,255,0.2); text-decoration: none; }
+    .footer-bottom-links { display: flex; gap: 22px; }
+  </style>
+  <link rel="stylesheet" href="../assets/css/header.css" />
+</head>
+<body>
+  <div data-webix-header></div>
+
+  <!-- PAGE HERO — INFOGRAPHIC -->
+  <section class="page-hero">
+    <div class="hero-infographic">
+      <!-- LEFT: Title + CTA -->
+      <div class="hero-left">
+        <div class="hero-tag">Nos services · 9 expertises</div>
+        <h1>Ce qu'on fait.<br/><em>Pourquoi</em><br/>ça marche.</h1>
+        <p>Chaque service est conçu pour s'intégrer dans un système cohérent. Pas des silos, pas des tactiques isolées — une machine d'acquisition complète.</p>
+        <div class="hero-actions">
+          <a href="contact.html" class="btn-primary">Obtenir une soumission →</a>
+          <a href="systeme.html" class="btn-ghost--dark" style="font-family:'Courier Prime',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--black);text-decoration:none;border:1px solid rgba(17,17,17,0.35);padding:16px 28px;display:inline-flex;align-items:center;transition:all 0.28s ease;">Voir le système</a>
+        </div>
+      </div>
+      <!-- RIGHT: Service list + Stats -->
+      <div class="hero-right">
+        <div class="hero-right-top">
+          <div class="hero-right-top-label">Index des services</div>
+          <div class="hero-service-list">
+            <a href="service-creation-publicitaire.html" class="hero-service-item"><span>01</span>Contenu Vidéo &amp; Publicitaire<span>→</span></a>
+            <a href="service-marketing-payant.html" class="hero-service-item"><span>02</span>Campagnes Marketing Payant<span>→</span></a>
+            <a href="service-agents-ia.html" class="hero-service-item"><span>03</span>Qualification par Agents IA<span>→</span></a>
+            <a href="service-crm-automatisation.html" class="hero-service-item"><span>04</span>Booking + CRM &amp; Automatisation<span>→</span></a>
+            <a href="service-processus-ventes.html" class="hero-service-item"><span>05</span>Processus de Ventes<span>→</span></a>
+            <a href="service-conception-web.html" class="hero-service-item"><span>06</span>Conception Web<span>→</span></a>
+            <a href="service-seo-complet.html" class="hero-service-item"><span>07</span>SEO Complet<span>→</span></a>
+            <a href="service-ai-seo.html" class="hero-service-item"><span>08</span>AI SEO (GEO)<span>→</span></a>
+            <a href="service-contenu-organique.html" class="hero-service-item"><span>09</span>Contenu Organique<span>→</span></a>
+          </div>
+        </div>
+        <div class="hero-right-bottom">
+          <div class="hero-stat-block">
+            <div class="hs-num">455+</div>
+            <div class="hs-label">Clients accompagnés</div>
+          </div>
+          <div class="hero-stat-block">
+            <div class="hs-num">9</div>
+            <div class="hs-label">Services intégrés</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">Création Publicitaire</span>
+      <span class="marquee-item">Meta Ads</span>
+      <span class="marquee-item">Google Ads</span>
+      <span class="marquee-item">Agents IA</span>
+      <span class="marquee-item">CRM Intégré</span>
+      <span class="marquee-item">Automatisation</span>
+      <span class="marquee-item">Processus de Vente</span>
+      <span class="marquee-item">Création Publicitaire</span>
+      <span class="marquee-item">Meta Ads</span>
+      <span class="marquee-item">Google Ads</span>
+      <span class="marquee-item">Agents IA</span>
+      <span class="marquee-item">CRM Intégré</span>
+      <span class="marquee-item">Automatisation</span>
+      <span class="marquee-item">Processus de Vente</span>
+    </div>
+  </div>
+
+  <!-- SERVICES LIST -->
+  <section class="section-services-list">
+    <div class="wrap">
+      <div class="services-header">
+        <div>
+          <span class="label label--blue" style="margin-bottom:18px;">Ce qu'on offre</span>
+          <h2>9 services.<br/>Un seul système.</h2>
+        </div>
+        <p>Chaque service est pensé pour s'intégrer avec les autres. Ensemble, ils forment un système d'acquisition complet, cohérent et mesurable.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-num">01</div>
+        <div class="svc-main">
+          <div class="svc-sub">Contenu · Vidéo · Créatif</div>
+          <a href="service-creation-publicitaire.html" style="text-decoration:none;color:inherit;display:contents;"><div class="svc-title">Création Publicitaire</div>
+          <p class="svc-desc">Vidéos, photos et créatifs publicitaires optimisés pour la conversion. On produit du contenu qui capte l'attention dans les premières secondes et déclenche l'action — UGC, vidéos de marque, créatifs A/B testés.</p>
+        </div>
+        <div class="svc-features">
+          <div class="svc-feature">Production vidéo publicitaire complète</div>
+          <div class="svc-feature">UGC (User Generated Content) authentique</div>
+          <div class="svc-feature">Photos de marque et visuels statiques</div>
+          <div class="svc-feature">Créatifs A/B pour optimisation continue</div>
+          <div class="svc-feature">Copywriting orienté conversion</div>
+        </div>
+        <a href="service-creation-publicitaire.html" class="svc-arrow" style="text-decoration:none;color:inherit;">→</a>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-num">02</div>
+        <div class="svc-main">
+          <div class="svc-sub">Meta Ads · Google Ads · ROI</div>
+          <a href="service-marketing-payant.html" style="text-decoration:none;color:inherit;display:contents;"><div class="svc-title">Marketing Payant</div>
+          <p class="svc-desc">Campagnes Meta Ads et Google Ads structurées pour générer des leads qualifiés. On gère vos budgets publicitaires avec une obsession pour le ROI — ciblage précis, optimisation continue, reporting transparent.</p>
+        </div>
+        <div class="svc-features">
+          <div class="svc-feature">Stratégie et structure de campagnes</div>
+          <div class="svc-feature">Gestion Meta Ads (Facebook & Instagram)</div>
+          <div class="svc-feature">Gestion Google Ads (Search & Display)</div>
+          <div class="svc-feature">Optimisation continue des audiences</div>
+          <div class="svc-feature">Reporting ROI et tableaux de bord</div>
+        </div>
+        <a href="service-marketing-payant.html" class="svc-arrow" style="text-decoration:none;color:inherit;">→</a>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-num">03</div>
+        <div class="svc-main">
+          <div class="svc-sub">Qualification · 24/7 · Automatisé</div>
+          <a href="service-agents-ia.html" style="text-decoration:none;color:inherit;display:contents;"><div class="svc-title">Agents IA</div>
+          <p class="svc-desc">Des agents intelligents qui qualifient, scorent et relancent vos leads 24 heures sur 24, 7 jours sur 7. Zéro délai, zéro effort manuel. Chaque lead est traité avec la même rigueur, peu importe l'heure.</p>
+        </div>
+        <div class="svc-features">
+          <div class="svc-feature">Qualification automatique des leads entrants</div>
+          <div class="svc-feature">Lead scoring et routing intelligent</div>
+          <div class="svc-feature">Relances automatisées multi-canaux</div>
+          <div class="svc-feature">Intégration avec votre CRM existant</div>
+          <div class="svc-feature">Rapports de performance en temps réel</div>
+        </div>
+        <a href="service-agents-ia.html" class="svc-arrow" style="text-decoration:none;color:inherit;">→</a>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-num">04</div>
+        <div class="svc-main">
+          <div class="svc-sub">RDV · Pipeline · AI-Ready</div>
+          <a href="service-crm-automatisation.html" style="text-decoration:none;color:inherit;display:contents;"><div class="svc-title">CRM & Automatisation</div>
+          <p class="svc-desc">Mise en place et optimisation de votre CRM avec booking automatique, rappels, pipeline visuel et automatisations intelligentes. Zéro lead oublié, zéro opportunité manquée.</p>
+        </div>
+        <div class="svc-features">
+          <div class="svc-feature">Implantation et configuration CRM</div>
+          <div class="svc-feature">Booking automatique avec rappels</div>
+          <div class="svc-feature">Pipeline visuel personnalisé</div>
+          <div class="svc-feature">Automatisations email et SMS</div>
+          <div class="svc-feature">Formation et support de l'équipe</div>
+        </div>
+        <a href="service-crm-automatisation.html" class="svc-arrow" style="text-decoration:none;color:inherit;">→</a>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-num">05</div>
+        <div class="svc-main">
+          <div class="svc-sub">KPI · Coaching · Prévisibilité</div>
+          <a href="service-processus-ventes.html" style="text-decoration:none;color:inherit;display:contents;"><div class="svc-title">Processus de Ventes</div>
+          <p class="svc-desc">Structuration de votre processus de vente pour maximiser le taux de closing. Scripts, KPI, dashboards et coaching pour rendre vos résultats prévisibles et mesurables mois après mois.</p>
+        </div>
+        <div class="svc-features">
+          <div class="svc-feature">Audit et restructuration du processus de vente</div>
+          <div class="svc-feature">Scripts et trames de conversation</div>
+          <div class="svc-feature">KPI et tableaux de bord de performance</div>
+          <div class="svc-feature">Coaching individuel et d'équipe</div>
+          <div class="svc-feature">Suivi mensuel et optimisation continue</div>
+        </div>
+        <a href="service-processus-ventes.html" class="svc-arrow" style="text-decoration:none;color:inherit;">→</a>
+      </div>
+
+
+      <div class="service-card">
+        <div class="svc-num">06</div>
+        <div class="svc-main">
+          <div class="svc-sub">Design · UX · Performance</div>
+          <a href="service-conception-web.html" style="text-decoration:none;color:inherit;display:contents;"><div class="svc-title">Conception Web</div>
+          <p class="svc-desc">Sites vitrines, landing pages et plateformes web conçus pour convertir. Chaque pixel est pensé pour guider votre visiteur vers l'action — mobile-first, ultra-rapide, intégré à votre CRM.</p>
+        </div>
+        <div class="svc-features">
+          <div class="svc-feature">Site vitrine ou landing page sur mesure</div>
+          <div class="svc-feature">Design UX/UI orienté conversion</div>
+          <div class="svc-feature">Performance PageSpeed 90+</div>
+          <div class="svc-feature">Intégration CRM et tracking</div>
+          <div class="svc-feature">CMS pour autonomie éditoriale</div>
+        </div>
+        <a href="service-conception-web.html" class="svc-arrow" style="text-decoration:none;color:inherit;">→</a>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-num">07</div>
+        <div class="svc-main">
+          <div class="svc-sub">Google · Autorité · Trafic organique</div>
+          <a href="service-seo-complet.html" style="text-decoration:none;color:inherit;display:contents;"><div class="svc-title">SEO Complet</div>
+          <p class="svc-desc">Articles de blog optimisés, fiche Google My Business, backlinks et stratégie de contenu. On positionne votre entreprise en tête des résultats pour les requêtes qui comptent vraiment.</p>
+        </div>
+        <div class="svc-features">
+          <div class="svc-feature">Audit SEO technique complet</div>
+          <div class="svc-feature">Stratégie de mots-clés et contenu</div>
+          <div class="svc-feature">Articles de blog optimisés (4/mois)</div>
+          <div class="svc-feature">Développement d'autorité et backlinks</div>
+          <div class="svc-feature">Reporting mensuel de positionnement</div>
+        </div>
+        <a href="service-seo-complet.html" class="svc-arrow" style="text-decoration:none;color:inherit;">→</a>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-num">08</div>
+        <div class="svc-main">
+          <div class="svc-sub">ChatGPT · Perplexity · GEO</div>
+          <a href="service-ai-seo.html" style="text-decoration:none;color:inherit;display:contents;"><div class="svc-title">AI SEO (GEO)</div>
+          <p class="svc-desc">Optimisez votre présence pour les moteurs de recherche IA — ChatGPT, Perplexity, Google AI Overview. Le GEO (Generative Engine Optimization) est le SEO de demain, disponible aujourd'hui.</p>
+        </div>
+        <div class="svc-features">
+          <div class="svc-feature">Audit de visibilité dans les LLMs</div>
+          <div class="svc-feature">Optimisation du contenu pour l'IA</div>
+          <div class="svc-feature">Structured data et schema markup</div>
+          <div class="svc-feature">Stratégie de citations et mentions</div>
+          <div class="svc-feature">Suivi de présence dans ChatGPT/Perplexity</div>
+        </div>
+        <a href="service-ai-seo.html" class="svc-arrow" style="text-decoration:none;color:inherit;">→</a>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-num">09</div>
+        <div class="svc-main">
+          <div class="svc-sub">Réseaux sociaux · Blog · Audience</div>
+          <a href="service-contenu-organique.html" style="text-decoration:none;color:inherit;display:contents;"><div class="svc-title">Contenu Organique</div>
+          <p class="svc-desc">Publication et création de contenu vidéo, réseaux sociaux et articles de blog pour bâtir une audience organique qualifiée qui génère des leads sans budget publicitaire.</p>
+        </div>
+        <div class="svc-features">
+          <div class="svc-feature">Stratégie de contenu multiplateforme</div>
+          <div class="svc-feature">Vidéos courtes et Reels (8/mois)</div>
+          <div class="svc-feature">Publications LinkedIn et Instagram</div>
+          <div class="svc-feature">Calendrier éditorial mensuel</div>
+          <div class="svc-feature">Analyse de performance et optimisation</div>
+        </div>
+        <a href="service-contenu-organique.html" class="svc-arrow" style="text-decoration:none;color:inherit;">→</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="section-packages">
+    <div class="wrap">
+      <div class="packages-header">
+        <span class="label label--blue" style="margin-bottom:18px;">Nos forfaits</span>
+        <h2>Choisissez votre niveau d'engagement</h2>
+        <p>Que vous démarriez ou que vous cherchiez à scaler, on a un forfait adapté à votre réalité. Chaque forfait inclut notre approche système — pas juste un service isolé.</p>
+      </div>
+      <div class="packages-grid">
+
+        <div class="pkg-card">
+          <div class="pkg-badge">Démarrage</div>
+          <div class="pkg-name">Fondation</div>
+          <p class="pkg-tagline">Pour les entreprises qui veulent structurer leur acquisition de base.</p>
+          <div class="pkg-divider"></div>
+          <div class="pkg-features">
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Création publicitaire (4 vidéos/mois)</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Gestion Meta Ads ou Google Ads</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Mise en place CRM de base</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Rapport mensuel de performance</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Support par email</span></div>
+          </div>
+          <a href="contact.html" class="pkg-cta">Commencer →</a>
+        </div>
+
+        <div class="pkg-card pkg-card--featured">
+          <div class="pkg-badge">Populaire</div>
+          <div class="pkg-name">Croissance</div>
+          <p class="pkg-tagline">Le système complet pour les entreprises qui veulent scaler rapidement.</p>
+          <div class="pkg-divider"></div>
+          <div class="pkg-features">
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Création publicitaire (8 vidéos/mois)</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Gestion Meta Ads + Google Ads</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Agents IA de qualification</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>CRM complet + automatisations</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Coaching processus de vente</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Réunion stratégique mensuelle</span></div>
+          </div>
+          <a href="contact.html" class="pkg-cta">Commencer →</a>
+        </div>
+
+        <div class="pkg-card">
+          <div class="pkg-badge">Entreprise</div>
+          <div class="pkg-name">Dominant</div>
+          <p class="pkg-tagline">Pour les entreprises qui veulent dominer leur marché sans compromis.</p>
+          <div class="pkg-divider"></div>
+          <div class="pkg-features">
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Création publicitaire illimitée</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Gestion multi-plateformes complète</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Agents IA avancés + personnalisés</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>CRM enterprise + intégrations custom</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Coaching hebdomadaire dédié</span></div>
+            <div class="pkg-feature"><span class="pkg-check">✓</span><span>Accès prioritaire à l'équipe</span></div>
+          </div>
+          <a href="contact.html" class="pkg-cta">Commencer →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="section-metrics">
+    <div class="wrap">
+      <div class="metrics-top">
+        <div>
+          <span class="label label--gold" style="margin-bottom:14px;">Nos résultats</span>
+          <h2>Des chiffres qui parlent</h2>
+        </div>
+        <a href="etudes-de-cas.html" class="btn-ghost">Voir les études de cas →</a>
+      </div>
+      <div class="metrics-grid">
+        <div class="m-card">
+          <div class="m-label">Clients actifs</div>
+          <div class="m-num">275<em>+</em></div>
+          <div class="m-desc">Entreprises qui font confiance à notre système pour leur acquisition.</div>
+          <div class="m-bar"><div class="m-bar-fill" style="width:92%"></div></div>
+        </div>
+        <div class="m-card">
+          <div class="m-label">Projets réalisés</div>
+          <div class="m-num">455<em>+</em></div>
+          <div class="m-desc">Systèmes d'acquisition déployés avec succès depuis 2021.</div>
+          <div class="m-bar"><div class="m-bar-fill" style="width:78%"></div></div>
+        </div>
+        <div class="m-card">
+          <div class="m-label">Taux de rétention</div>
+          <div class="m-num">94<em>%</em></div>
+          <div class="m-desc">Nos clients restent parce que les résultats sont au rendez-vous.</div>
+          <div class="m-bar"><div class="m-bar-fill" style="width:94%"></div></div>
+        </div>
+        <div class="m-card">
+          <div class="m-label">ROI moyen</div>
+          <div class="m-num">7<em>×</em></div>
+          <div class="m-desc">Retour sur investissement moyen observé chez nos clients actifs.</div>
+          <div class="m-bar"><div class="m-bar-fill" style="width:85%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section-cta">
+    <div class="cta-ghost">TWX</div>
+    <div class="wrap">
+      <div class="cta-inner">
+        <div>
+          <span class="label label--gold" style="margin-bottom:18px;">Prêt à commencer?</span>
+          <h2>Quel service vous<br/><em>convient?</em></h2>
+        </div>
+        <div class="cta-right">
+          <p>Réservez un appel stratégique gratuit avec notre équipe pour identifier les services les mieux adaptés à votre situation.</p>
+          <a href="contact.html" class="btn-gold">Réservez un appel stratégique</a>
+          <a href="systeme.html" class="btn-white-ghost">Voir notre système</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo-name">The WebiX</div>
+          <p class="footer-tagline">Agence de systèmes d'acquisition basée sur la Rive-Sud de Montréal. On bâtit votre système de A à Z.</p>
+        </div>
+        <div>
+          <div class="footer-col-label">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="systeme.html">Système d'acquisition</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="etudes-de-cas.html">Études de cas</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Ressources</div>
+          <ul class="footer-links">
+            <li><a href="#">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Calculateur</a></li>
+            <li><a href="#">Formation CRM</a></li>
+            <li><a href="#">Termes et conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Nous joindre</div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <span>+1 (450) 300-6119</span>
+          </div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@thewebix.com</span>
+          </div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>1290 Bd Roland-Therrien<br/>Longueuil, QC J4J 5H4</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Services Thewebix inc. Tous droits réservés.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Politique de confidentialité</a>
+          <a href="#">Termes et conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+/* Shared header, based on the Études de cas page. */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  backdrop-filter: blur(24px) saturate(1.2) brightness(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4) brightness(1.05);
+  background: rgba(235,231,227,0.40);
+  border-bottom: 1px solid rgba(17,17,17,0.07);
+}
+
+.nav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 56px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  color: var(--blue);
+}
+
+.logo-sep {
+  width: 1px;
+  height: 14px;
+  background: rgba(22,27,128,0.18);
+}
+
+.logo-sub {
+  font-family: 'Courier Prime', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(22,27,128,0.62);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+nav a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}
+
+nav a:hover {
+  opacity: 1;
+}
+
+nav a.active {
+  opacity: 1;
+  color: var(--blue);
+}
+
+.btn-cta {
+  background: var(--blue);
+  color: #fff !important;
+  opacity: 1 !important;
+  padding: 9px 20px;
+  font-size: 9.5px !important;
+  letter-spacing: 0.16em !important;
+  font-weight: 700 !important;
+  transition: all 0.28s ease;
+}
+
+.btn-cta:hover {
+  background: rgba(22,27,128,0.88);
+  transform: translateY(-1px);
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown > a {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(235,231,227,0.97);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(22,27,128,0.1);
+  min-width: 260px;
+  padding: 12px 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.22s ease;
+  z-index: 200;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  transition: all 0.18s;
+  border-left: 2px solid transparent;
+  opacity: 1;
+}
+
+.dropdown-menu a:hover {
+  color: var(--blue);
+  border-left-color: var(--gold);
+  background: rgba(22,27,128,0.04);
+}
+
+.dropdown-menu a.active {
+  color: var(--blue);
+  border-left-color: var(--blue);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: rgba(22,27,128,0.08);
+  margin: 8px 0;
+}
+
+.dropdown-all {
+  font-weight: 700 !important;
+  color: var(--blue) !important;
+}
+
+@media (max-width: 900px) {
+  .nav-wrap {
+    height: auto;
+    min-height: 80px;
+    padding: 16px 24px;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  nav {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+
+  nav a {
+    font-size: 9.5px;
+  }
+
+  .dropdown-menu {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .nav-wrap {
+    flex-direction: column;
+  }
+
+  nav {
+    justify-content: flex-start;
+  }
+}

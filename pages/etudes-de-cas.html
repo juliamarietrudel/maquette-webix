@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Études de Cas — The WebiX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../assets/js/header.js" defer></script>
+  <style>
+    :root {
+      --blue:     #161B80;
+      --blue-mid: #545FFF;
+      --gold:     #E6C068;
+      --beige:    #EBE7E3;
+      --black:    #111111;
+      --grey:     #555555;
+      --white:    #FFFFFF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--beige); color: var(--black); overflow-x: hidden; }
+
+    .label { font-family: 'Courier Prime', monospace; font-size: 9.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--grey); display: flex; align-items: center; gap: 10px; }
+    .label::before { content: ''; display: inline-block; width: 20px; height: 1px; background: currentColor; flex-shrink: 0; }
+    .label--blue { color: var(--blue); }
+    .label--gold { color: var(--gold); }
+    .label--no-line::before { display: none; }
+
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 0 56px; }
+
+
+    .btn-primary { background: var(--blue); color: #fff; padding: 17px 34px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.28s ease; }
+    .btn-primary:hover { background: rgba(22,27,128,0.88); transform: translateY(-1px); }
+    .btn-ghost { font-family: 'Courier Prime', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.88); text-decoration: none; border: 1px solid rgba(255,255,255,0.7); padding: 16px 28px; display: inline-flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); background: transparent; transition: all 0.28s ease; }
+    .btn-ghost:hover { transform: translateY(-1px); }
+    .btn-ghost--dark { color: var(--black); border-color: rgba(17,17,17,0.35); }
+    .btn-gold { background: var(--gold); color: var(--black); padding: 13px 26px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.28s ease; }
+    .btn-gold:hover { background: rgba(230,192,104,0.88); transform: translateY(-1px); }
+    .btn-white-ghost { font-family: 'Courier Prime', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.18); padding-bottom: 2px; }
+
+    /* PAGE HERO */
+    .page-hero {
+      min-height: 65vh;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.30)),
+                  url('../assets/images/office2_duotone.jpg') center center / cover no-repeat;
+    }
+    .page-hero-inner {
+      width: calc(100% - 100px);
+      margin: 50px;
+      position: relative; z-index: 2;
+      backdrop-filter: blur(24px) saturate(1.2);
+      -webkit-backdrop-filter: blur(24px) saturate(1.2);
+      background: rgba(235,231,227,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 80px 80px 70px;
+      text-align: center;
+    }
+    .page-hero-inner h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 7.5vw, 116px); line-height: 0.9; color: var(--white); letter-spacing: 0.01em; margin: 22px 0 28px; }
+    .page-hero-inner p { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.85; max-width: 640px; margin: 0 auto 40px; }
+    .page-hero-actions { display: flex; align-items: center; justify-content: center; gap: 24px; }
+
+    /* MARQUEE */
+    .marquee { background: var(--blue); overflow: hidden; padding: 11px 0; }
+    .marquee-track { display: flex; white-space: nowrap; animation: mq 22s linear infinite; }
+    .marquee-item { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 0.2em; color: rgba(255,255,255,0.45); padding: 0 26px; display: flex; align-items: center; gap: 26px; }
+    .marquee-item::after { content: '✦'; font-size: 7px; color: var(--gold); }
+    @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* FEATURED CASE */
+    .section-featured {
+      background: var(--beige);
+      padding: 110px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 560px;
+    }
+    .featured-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .featured-content {
+      padding: 70px 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: rgba(22,27,128,0.92);
+      position: relative;
+    }
+    .featured-content::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+    }
+    .case-industry { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+    .case-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4vw, 58px); line-height: 0.92; color: var(--white); margin-bottom: 20px; }
+    .case-desc { font-size: 13px; color: rgba(255,255,255,0.68); line-height: 1.85; margin-bottom: 36px; }
+    .case-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 36px;
+    }
+    .case-result {
+      background: rgba(255,255,255,0.04);
+      padding: 20px 18px;
+      text-align: center;
+    }
+    .case-result-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; line-height: 1; color: var(--gold); }
+    .case-result-lbl { font-family: 'Courier Prime', monospace; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 4px; }
+
+    /* CASES GRID */
+    .section-cases {
+      background: var(--beige);
+      padding: 110px 0;
+    }
+    .cases-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+    }
+    .cases-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 5vw, 76px); line-height: 0.92; color: var(--black); }
+    .filter-tabs { display: flex; gap: 2px; }
+    .filter-tab { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; padding: 9px 18px; border: 1px solid rgba(17,17,17,0.18); color: var(--grey); cursor: pointer; transition: all 0.2s; background: transparent; }
+    .filter-tab.active, .filter-tab:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(17,17,17,0.07);
+    }
+    .case-card {
+      background: var(--beige);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.28s ease;
+      cursor: pointer;
+    }
+    .case-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); z-index: 2; }
+    .case-card-img {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+    }
+    .case-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .case-card:hover .case-card-img img { transform: scale(1.04); }
+    .case-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(22,27,128,0.5) 0%, transparent 60%);
+    }
+    .case-card-tag {
+      position: absolute;
+      top: 16px; left: 16px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 8px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--blue);
+      padding: 4px 10px;
+    }
+    .case-card-body { padding: 28px 28px 32px; }
+    .case-card-industry { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+    .case-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; line-height: 0.95; color: var(--black); margin-bottom: 12px; }
+    .case-card-desc { font-size: 12px; color: var(--grey); line-height: 1.75; margin-bottom: 20px; }
+    .case-card-metrics { display: flex; gap: 20px; }
+    .case-metric { }
+    .case-metric-num { font-family: 'Bebas Neue', sans-serif; font-size: 28px; line-height: 1; color: var(--blue); }
+    .case-metric-num em { color: var(--gold); font-style: normal; font-size: 18px; }
+    .case-metric-lbl { font-family: 'Courier Prime', monospace; font-size: 7.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey); }
+
+    /* TESTIMONIALS */
+    .section-testimonials {
+      background: var(--white);
+      padding: 110px 0;
+    }
+    .testimonials-header { margin-bottom: 64px; }
+    .testimonials-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 5vw, 76px); line-height: 0.92; color: var(--black); margin: 16px 0 0; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(17,17,17,0.07);
+    }
+    .testi-card {
+      background: var(--white);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.28s ease;
+    }
+    .testi-card:hover { background: var(--beige); }
+    .testi-quote {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      line-height: 0.7;
+      color: rgba(22,27,128,0.08);
+      margin-bottom: 20px;
+    }
+    .testi-text { font-size: 13px; color: var(--grey); line-height: 1.85; margin-bottom: 28px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 14px; }
+    .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(22,27,128,0.12); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: var(--blue); flex-shrink: 0; }
+    .testi-name { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--black); }
+    .testi-company { font-family: 'Courier Prime', monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); margin-top: 2px; }
+
+    /* CTA */
+    .section-cta { background-color: var(--blue); background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 18px 18px; padding: 110px 0; position: relative; overflow: hidden; }
+    .cta-ghost { position: absolute; bottom: -60px; left: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 22vw; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; white-space: nowrap; }
+    .cta-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 60px; }
+    .cta-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 6.5vw, 96px); line-height: 0.9; color: var(--white); }
+    .cta-inner h2 em { font-style: normal; color: var(--gold); }
+    .cta-right { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; min-width: 260px; }
+    .cta-right p { font-size: 12.5px; color: rgba(255,255,255,0.55); line-height: 1.8; }
+
+    /* FOOTER */
+    footer { background: rgba(17,17,17,0.97); backdrop-filter: blur(28px) saturate(1.2); -webkit-backdrop-filter: blur(28px) saturate(1.2); padding: 68px 0 28px; position: relative; }
+    footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(22,27,128,0.18) 0%, transparent 70%); pointer-events: none; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 56px; margin-bottom: 56px; position: relative; z-index: 1; }
+    .footer-logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.1em; color: var(--white); margin-bottom: 14px; }
+    .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; max-width: 220px; }
+    .footer-col-label { font-family: 'Courier Prime', monospace; font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.38); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-contact-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; }
+    .footer-contact-row svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; stroke: rgba(255,255,255,0.25); fill: none; stroke-width: 1.8; }
+    .footer-contact-row span { font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.5; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+    .footer-bottom p, .footer-bottom a { font-size: 10.5px; color: rgba(255,255,255,0.2); text-decoration: none; }
+    .footer-bottom-links { display: flex; gap: 22px; }
+  </style>
+  <link rel="stylesheet" href="../assets/css/header.css" />
+</head>
+<body>
+  <div data-webix-header></div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <span class="label label--gold label--no-line" style="justify-content:center; margin-bottom:4px;">Études de cas</span>
+      <h1>Des résultats.<br/>Pas des promesses.</h1>
+      <p>Chaque étude de cas représente un système d'acquisition déployé, optimisé et mesuré. Des chiffres réels, des clients réels, des résultats reproductibles.</p>
+      <div class="page-hero-actions">
+        <a href="contact.html" class="btn-primary">Obtenir des résultats similaires →</a>
+        <a href="systeme.html" class="btn-ghost">Voir notre système</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">Construction</span>
+      <span class="marquee-item">Cliniques</span>
+      <span class="marquee-item">Services B2B</span>
+      <span class="marquee-item">Rénovation</span>
+      <span class="marquee-item">Immobilier</span>
+      <span class="marquee-item">Services Financiers</span>
+      <span class="marquee-item">E-Commerce</span>
+      <span class="marquee-item">Construction</span>
+      <span class="marquee-item">Cliniques</span>
+      <span class="marquee-item">Services B2B</span>
+      <span class="marquee-item">Rénovation</span>
+      <span class="marquee-item">Immobilier</span>
+      <span class="marquee-item">Services Financiers</span>
+      <span class="marquee-item">E-Commerce</span>
+    </div>
+  </div>
+
+  <!-- FEATURED CASE -->
+  <section class="section-featured">
+    <div class="wrap">
+      <div class="featured-grid">
+        <div class="featured-img">
+          <img src="../assets/images/table_duotone.jpg" alt="Étude de cas vedette" />
+        </div>
+        <div class="featured-content">
+          <div class="case-industry">Étude de cas vedette · Construction & Rénovation</div>
+          <div class="case-title">De 3 leads/semaine à un pipeline de 40+ opportunités qualifiées</div>
+          <p class="case-desc">Une entreprise de rénovation résidentielle de la Rive-Sud avait un excellent service, mais aucun système pour générer des leads de façon prévisible. En 90 jours, on a déployé un système complet : publicités Meta, agents IA, CRM et processus de vente.</p>
+          <div class="case-results">
+            <div class="case-result">
+              <div class="case-result-num">+1340%</div>
+              <div class="case-result-lbl">Leads générés</div>
+            </div>
+            <div class="case-result">
+              <div class="case-result-num">8×</div>
+              <div class="case-result-lbl">ROI publicitaire</div>
+            </div>
+            <div class="case-result">
+              <div class="case-result-num">90j</div>
+              <div class="case-result-lbl">Délai résultats</div>
+            </div>
+          </div>
+          <a href="contact.html" class="btn-gold">Obtenir des résultats similaires →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES GRID -->
+  <section class="section-cases">
+    <div class="wrap">
+      <div class="cases-header">
+        <div>
+          <span class="label label--blue" style="margin-bottom:18px;">Tous nos cas</span>
+          <h2>Résultats par industrie</h2>
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-tab active">Tous</button>
+          <button class="filter-tab">B2B</button>
+          <button class="filter-tab">B2C</button>
+          <button class="filter-tab">Services</button>
+        </div>
+      </div>
+
+      <div class="cases-grid">
+
+        <div class="case-card">
+          <div class="case-card-img">
+            <img src="../assets/images/office_duotone.jpg" alt="Clinique de santé" />
+            <div class="case-card-overlay"></div>
+            <div class="case-card-tag">B2C</div>
+          </div>
+          <div class="case-card-body">
+            <div class="case-card-industry">Clinique de santé · Montréal</div>
+            <div class="case-card-title">Clinique Santé Plus : 3× plus de nouveaux patients</div>
+            <p class="case-card-desc">Déploiement d'un système complet de génération de leads avec agents IA et booking automatique pour une clinique de physiothérapie.</p>
+            <div class="case-card-metrics">
+              <div class="case-metric">
+                <div class="case-metric-num">3<em>×</em></div>
+                <div class="case-metric-lbl">Nouveaux patients</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">-60<em>%</em></div>
+                <div class="case-metric-lbl">No-shows</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">4.8<em>×</em></div>
+                <div class="case-metric-lbl">ROI</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-card-img">
+            <img src="../assets/images/wall_duotone.jpg" alt="Entreprise B2B" />
+            <div class="case-card-overlay"></div>
+            <div class="case-card-tag">B2B</div>
+          </div>
+          <div class="case-card-body">
+            <div class="case-card-industry">Services financiers · Rive-Sud</div>
+            <div class="case-card-title">Cabinet conseil : 45 RDV qualifiés en 60 jours</div>
+            <p class="case-card-desc">Un cabinet de conseil en finances d'entreprise voulait structurer son acquisition sans dépendre des références. Résultat : pipeline prévisible et croissance de 40%.</p>
+            <div class="case-card-metrics">
+              <div class="case-metric">
+                <div class="case-metric-num">45<em>+</em></div>
+                <div class="case-metric-lbl">RDV qualifiés</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">+40<em>%</em></div>
+                <div class="case-metric-lbl">Revenus</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">60<em>j</em></div>
+                <div class="case-metric-lbl">Délai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-card-img">
+            <img src="../assets/images/hero_duotone.jpg" alt="Toiture" />
+            <div class="case-card-overlay"></div>
+            <div class="case-card-tag">B2C</div>
+          </div>
+          <div class="case-card-body">
+            <div class="case-card-industry">Toiture · Rive-Sud de Montréal</div>
+            <div class="case-card-title">Toitures Prestige : saison record avec 2× moins d'effort</div>
+            <p class="case-card-desc">Automatisation complète du suivi des leads et déploiement d'un agent IA pour qualifier les demandes entrantes. Résultat : meilleure saison de leur histoire.</p>
+            <div class="case-card-metrics">
+              <div class="case-metric">
+                <div class="case-metric-num">2<em>×</em></div>
+                <div class="case-metric-lbl">Projets signés</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">90<em>%</em></div>
+                <div class="case-metric-lbl">Leads rejoints</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">6<em>×</em></div>
+                <div class="case-metric-lbl">ROI</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-card-img">
+            <img src="../assets/images/office2_duotone.jpg" alt="Paysagement" />
+            <div class="case-card-overlay"></div>
+            <div class="case-card-tag">B2C</div>
+          </div>
+          <div class="case-card-body">
+            <div class="case-card-industry">Paysagement · Montérégie</div>
+            <div class="case-card-title">Paysagement Verts : de 0 à 80 leads/mois en 45 jours</div>
+            <p class="case-card-desc">Lancement d'un système d'acquisition complet pour une nouvelle entreprise de paysagement. De zéro présence en ligne à un pipeline plein en moins de 2 mois.</p>
+            <div class="case-card-metrics">
+              <div class="case-metric">
+                <div class="case-metric-num">80<em>+</em></div>
+                <div class="case-metric-lbl">Leads/mois</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">45<em>j</em></div>
+                <div class="case-metric-lbl">Délai</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">9<em>×</em></div>
+                <div class="case-metric-lbl">ROI</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-card-img">
+            <img src="../assets/images/table_duotone.jpg" alt="Agence immobilière" />
+            <div class="case-card-overlay"></div>
+            <div class="case-card-tag">B2B</div>
+          </div>
+          <div class="case-card-body">
+            <div class="case-card-industry">Immobilier commercial · Québec</div>
+            <div class="case-card-title">Groupe Immo : CRM + IA = pipeline de 2M$ en 3 mois</div>
+            <p class="case-card-desc">Déploiement d'un CRM AI-ready avec agents de qualification pour un groupe immobilier commercial. Chaque lead est scoré, suivi et relancé automatiquement.</p>
+            <div class="case-card-metrics">
+              <div class="case-metric">
+                <div class="case-metric-num">2<em>M$</em></div>
+                <div class="case-metric-lbl">Pipeline</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">+55<em>%</em></div>
+                <div class="case-metric-lbl">Taux closing</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">3<em>mois</em></div>
+                <div class="case-metric-lbl">Délai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-card-img">
+            <img src="../assets/images/wall_duotone.jpg" alt="Formation en ligne" />
+            <div class="case-card-overlay"></div>
+            <div class="case-card-tag">B2C</div>
+          </div>
+          <div class="case-card-body">
+            <div class="case-card-industry">Formation en ligne · Canada</div>
+            <div class="case-card-title">École Pro : 500 inscriptions en 30 jours avec Meta Ads</div>
+            <p class="case-card-desc">Campagnes Meta Ads ultra-ciblées avec créatifs vidéo optimisés pour une école de formation en ligne. Lancement de programme réussi avec un coût par inscription record.</p>
+            <div class="case-card-metrics">
+              <div class="case-metric">
+                <div class="case-metric-num">500<em>+</em></div>
+                <div class="case-metric-lbl">Inscriptions</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">-70<em>%</em></div>
+                <div class="case-metric-lbl">Coût/inscription</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">12<em>×</em></div>
+                <div class="case-metric-lbl">ROI</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section-testimonials">
+    <div class="wrap">
+      <div class="testimonials-header">
+        <span class="label label--blue" style="margin-bottom:18px;">Ce que nos clients disent</span>
+        <h2>Ils ont fait confiance<br/>au système</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">The WebiX a complètement transformé notre façon d'acquérir des clients. En 3 mois, on est passé de 5 leads par semaine à plus de 40. Le système fonctionne même quand on dort.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">ML</div>
+            <div>
+              <div class="testi-name">Marc-Luc Tremblay</div>
+              <div class="testi-company">Rénovations Prestige · Longueuil</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Ce qui m'a convaincu, c'est leur approche système. Pas juste de la pub, mais toute la chaîne de conversion. Notre taux de closing a augmenté de 40% en 60 jours.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">SB</div>
+            <div>
+              <div class="testi-name">Sophie Beauchamp</div>
+              <div class="testi-company">Cabinet Conseil SB · Brossard</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <p class="testi-text">L'agent IA qui qualifie nos leads 24/7 a changé notre business. On ne perd plus de leads parce qu'on n'a pas rappelé assez vite. C'est un game-changer absolu.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">JF</div>
+            <div>
+              <div class="testi-name">Jean-François Côté</div>
+              <div class="testi-company">Toitures JFC · Rive-Sud</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section-cta">
+    <div class="cta-ghost">TWX</div>
+    <div class="wrap">
+      <div class="cta-inner">
+        <div>
+          <span class="label label--gold" style="margin-bottom:18px;">Votre tour</span>
+          <h2>Prêt à écrire<br/><em>votre étude de cas?</em></h2>
+        </div>
+        <div class="cta-right">
+          <p>Réservez un appel stratégique gratuit pour voir comment notre système peut générer des résultats similaires dans votre industrie.</p>
+          <a href="contact.html" class="btn-gold">Réservez un appel stratégique</a>
+          <a href="services.html" class="btn-white-ghost">Voir nos services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo-name">The WebiX</div>
+          <p class="footer-tagline">Agence de systèmes d'acquisition basée sur la Rive-Sud de Montréal. On bâtit votre système de A à Z.</p>
+        </div>
+        <div>
+          <div class="footer-col-label">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="systeme.html">Système d'acquisition</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="etudes-de-cas.html">Études de cas</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Ressources</div>
+          <ul class="footer-links">
+            <li><a href="#">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Calculateur</a></li>
+            <li><a href="#">Formation CRM</a></li>
+            <li><a href="#">Termes et conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Nous joindre</div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <span>+1 (450) 300-6119</span>
+          </div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@thewebix.com</span>
+          </div>
+          <div class="footer-contact-row">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>1290 Bd Roland-Therrien<br/>Longueuil, QC J4J 5H4</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Services Thewebix inc. Tous droits réservés.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Politique de confidentialité</a>
+          <a href="#">Termes et conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
