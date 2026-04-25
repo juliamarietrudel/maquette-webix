@@ -68,6 +68,20 @@ function lines(items) {
   return items.map((item) => typeof item === "string" ? h(item) : `<em>${h(item.em)}</em>`).join("<br>");
 }
 
+function linesWithSingleBreak(items) {
+  if (!Array.isArray(items) || items.length <= 2) {
+    return lines(items);
+  }
+
+  const first = typeof items[0] === "string" ? h(items[0]) : `<em>${h(items[0].em)}</em>`;
+  const rest = items
+    .slice(1)
+    .map((item) => typeof item === "string" ? h(item) : `<em>${h(item.em)}</em>`)
+    .join("");
+
+  return `${first}<br>${rest}`;
+}
+
 function inline(items) {
   return items.map((item) => typeof item === "string" ? h(item) : `<em>${h(item.em)}</em>`).join("");
 }
@@ -288,6 +302,7 @@ function overview(service) {
                     <h4>${h(title)}</h4>
                     <p>${h(desc)}</p>
                   </div>
+                  <div class="service-step-hover">En savoir plus</div>
                 </article>`;
               }).join("")}
             </div>
@@ -335,7 +350,7 @@ function metrics(service) {
         <div class="metrics-top">
           <div>
             <div class="label label--gold">${h(service.chart.label)}</div>
-            <h2>${lines(data.title)}</h2>
+            <h2>${linesWithSingleBreak(data.title)}</h2>
           </div>
           <p class="metrics-top-copy">${h(data.subtitle)}</p>
         </div>
@@ -360,7 +375,7 @@ function comparison(service) {
         <div class="services-header">
           <div>
             <div class="label label--blue">${h(data.label)}</div>
-            <h2>${lines(data.title)}</h2>
+            <h2>${linesWithSingleBreak(data.title)}</h2>
           </div>
           <div class="services-header-copy">
             <p>${h(data.text)}</p>
@@ -405,7 +420,7 @@ function timeline(service) {
         <div class="services-header">
           <div>
             <div class="label label--blue">${h(data.label)}</div>
-            <h2>${lines(data.title)}</h2>
+            <h2>${linesWithSingleBreak(data.title)}</h2>
           </div>
           <div class="services-header-copy">
             <p>${h(data.text)}</p>

@@ -89,7 +89,7 @@ window.WEBIX_SERVICES = {
       },
       timeline: {
         label: "Calendrier de démarrage",
-        title: ["De zéro à vos", "premiers créatifs", "en 2 semaines."],
+        title: ["De zéro à vos", "premiers créatifs en 2 semaines."],
         text: "Un onboarding structuré pour produire vite sans sacrifier la qualité stratégique.",
         items: [
           ["Semaine 1", "Brief & Stratégie Créative", "Session de travail pour comprendre votre marque, votre audience et vos objectifs.", ["Brief", "Concurrents", "Personas"]],
@@ -255,7 +255,7 @@ window.WEBIX_SERVICES = {
       },
       timeline: {
         label: "Déploiement",
-        title: ["Votre agent", "en moins de", "2 semaines."],
+        title: ["Votre agent", "en moins de 2 semaines."],
         text: "Configuration, intégration CRM, tests et formation inclus.",
         items: [
           ["Jour 1-3", "Scénarios", "On définit les questions, scores, routes et ton de conversation.", ["Scripts", "Scoring", "Ton"]],
@@ -338,7 +338,7 @@ window.WEBIX_SERVICES = {
       },
       timeline: {
         label: "Implantation",
-        title: ["Votre pipeline", "sous contrôle", "en 2 semaines."],
+        title: ["Votre pipeline", "sous contrôle en 2 semaines."],
         text: "Configuration, automatisations et formation de votre équipe incluses.",
         items: [
           ["Jour 1-3", "Cartographie", "On documente votre processus actuel et vos points de friction.", ["Audit", "Pipeline", "Rôles"]],
@@ -757,7 +757,7 @@ window.WEBIX_SERVICES = {
       },
       timeline: {
         label: "Calendrier",
-        title: ["Votre moteur", "organique en", "30 jours."],
+        title: ["Votre moteur", "organique en 30 jours."],
         text: "Stratégie, production initiale et rythme mensuel.",
         items: [
           ["Semaine 1", "Stratégie", "Piliers, audience, angles et calendrier.", ["Piliers", "Audience", "Calendrier"]],
